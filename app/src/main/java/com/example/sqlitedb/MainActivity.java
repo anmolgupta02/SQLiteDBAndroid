@@ -74,11 +74,30 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     showMessage("Get Data Operation", cursorData);
                 }
-
-
             }
         });
 
+        btnViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cursor cursor = myDB.getAllData();
+
+                StringBuffer buffer = new StringBuffer();
+
+                if(cursor.getCount() == 0){
+                    showMessage("Error", "No data in db currently");
+                }
+
+                while(cursor.moveToNext()){
+                    buffer.append("ID: "+cursor.getString(0)+"\n");
+                    buffer.append("Name: "+cursor.getString(1)+"\n");
+                    buffer.append("Email: "+cursor.getString(2)+"\n");
+                    buffer.append("Course Count: "+cursor.getString(3)+"\n\n");
+                }
+
+                showMessage("Results", buffer.toString());
+            }
+        });
     }
 
     public void showMessage(String Title, String Message) {
