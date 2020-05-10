@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (cursorData.isEmpty()) {
-                    showMessage("Get Data Operation", "No data found at ID " + enteredID[0]);
+                    showMessage("Get Data Operation", "No data found at ID: " + enteredID[0]);
                 } else {
                     showMessage("Get Data Operation", cursorData);
                 }
