@@ -2,6 +2,7 @@ package com.example.sqlitedb;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,7 +32,21 @@ public class MainActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.editText_email);
         etCourseCount = findViewById(R.id.editText_CC);
 
-        showMessage("test", "testing done");
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isInserted = myDB.insertInto(etName.getText().toString(),
+                        etEmail.getText().toString(),
+                        etCourseCount.getText().toString());
+
+                if (isInserted) {
+                    showMessage("Add Operation", "Data Inserted Successfully");
+                } else {
+                    showMessage("Add Operation", "Something Went Wrong");
+                }
+            }
+        });
 
     }
 
