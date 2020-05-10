@@ -1,6 +1,7 @@
 package com.example.sqlitedb;
 
 import android.app.AlertDialog;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,36 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     showMessage("Add Operation", "Something Went Wrong");
                 }
+            }
+        });
+
+        final String[] enteredID = new String[1];
+        btnGetdata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enteredID[0] = etId.getText().toString();
+
+                if (enteredID[0].equals("")) {
+                    etId.setError("Please Enter the Id");
+                    return;
+                }
+
+                Cursor cursor = myDB.getData(enteredID[0]);
+                String cursorData = "";
+                if (cursor.moveToNext()) {
+                    cursorData = "ID: " + cursor.getString(0) + "\n" +
+                            "Name: " + cursor.getString(1) + "\n" +
+                            "Email: " + cursor.getString(2) + "\n" +
+                            "Course Count: " + cursor.getString(3) + "\n";
+                }
+
+                if (cursorData.isEmpty()) {
+                    showMessage("Get Data Operation", "No data found at ID " + enteredID[0]);
+                } else {
+                    showMessage("Get Data Operation", cursorData);
+                }
+
+
             }
         });
 
